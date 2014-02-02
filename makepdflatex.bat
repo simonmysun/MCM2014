@@ -1,5 +1,5 @@
 @echo off
-pdflatex mcmpaper
-pdflatex mcmpaper
 Call clean.bat
+pdflatex mcmpaper
+pdflatex mcmpaper
 start mcmpaper.pdf
