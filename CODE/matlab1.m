@@ -7,9 +7,3 @@ for i=1:n
         aisleTime(i)=trirnd(3.2,7.1,38.7);
     end
 end
-
- 
-   
-   
-   
-   

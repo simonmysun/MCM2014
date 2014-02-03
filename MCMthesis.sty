@@ -13,15 +13,15 @@
 \RequirePackage{ifthen}         % logic options
 \RequirePackage{lastpage}       % refer to the number of last page
 \RequirePackage{listings}       % format source code
-\RequirePackage[toc,page,title,titletoc,header]{appendix}%¸½Â¼ÖÆ×÷
+\RequirePackage[toc,page,title,titletoc,header]{appendix}%é™„å½•åˆ¶ä½œ
 \RequirePackage{paralist}
-%======ÊıÑ§¹«Ê½===========
+%======æ•°å­¦å…¬å¼===========
 \RequirePackage{amsthm,amsfonts}
 \RequirePackage{amsmath,bm}              % AMSLaTeX
 \RequirePackage{amssymb,mathrsfs}        % AMSLaTeX sym-bols
 \RequirePackage{latexsym}
  
-\RequirePackage{longtable,multirow,hhline,tabularx,array}       %@@±í¸ñÏà¹Ø
+\RequirePackage{longtable,multirow,hhline,tabularx,array}       %@@è¡¨æ ¼ç›¸å…³
 \RequirePackage{flafter}
 \RequirePackage{pifont,calc}
 \RequirePackage{colortbl,booktabs}
@@ -56,27 +56,27 @@
     linkcolor=black,%
     citecolor=black,%
     pagecolor=black,%
-    colorlinks=true, %×¢ÊÍµô´ËÏîÔò½»²æÒıÓÃÎª²ÊÉ«±ß¿ò(½«colorlinksºÍpdfborderÍ¬Ê±×¢ÊÍµô)
-    pdfborder=001,   %×¢ÊÍµô´ËÏîÔò½»²æÒıÓÃÎª²ÊÉ«±ß¿ò
+    colorlinks=true, %æ³¨é‡Šæ‰æ­¤é¡¹åˆ™äº¤å‰å¼•ç”¨ä¸ºå½©è‰²è¾¹æ¡†(å°†colorlinkså’ŒpdfborderåŒæ—¶æ³¨é‡Šæ‰)
+    pdfborder=001,   %æ³¨é‡Šæ‰æ­¤é¡¹åˆ™äº¤å‰å¼•ç”¨ä¸ºå½©è‰²è¾¹æ¡†
     linkcolor=black,%
     citecolor=black,%
     pagecolor=black,%
     urlcolor=black]{hyperref}
 \else
 \DeclareGraphicsExtensions{.eps,.ps}
-\RequirePackage[dvipdfm,  %pdflatex,pdftex    ÕâÀï¾ö¶¨ÔËĞĞÎÄ¼şµÄ·½Ê½²»Í¬
+\RequirePackage[dvipdfm,  %pdflatex,pdftex    è¿™é‡Œå†³å®šè¿è¡Œæ–‡ä»¶çš„æ–¹å¼ä¸åŒ
             pdfstartview=FitH,%
             CJKbookmarks=true,%
             bookmarksnumbered=true,%
             bookmarksopen=true,%
-            colorlinks=true, %×¢ÊÍµô´ËÏîÔò½»²æÒıÓÃÎª²ÊÉ«±ß¿ò(½«colorlinksºÍpdfborderÍ¬Ê±×¢ÊÍµô)
-            pdfborder=001,   %×¢ÊÍµô´ËÏîÔò½»²æÒıÓÃÎª²ÊÉ«±ß¿ò
+            colorlinks=true, %æ³¨é‡Šæ‰æ­¤é¡¹åˆ™äº¤å‰å¼•ç”¨ä¸ºå½©è‰²è¾¹æ¡†(å°†colorlinkså’ŒpdfborderåŒæ—¶æ³¨é‡Šæ‰)
+            pdfborder=001,   %æ³¨é‡Šæ‰æ­¤é¡¹åˆ™äº¤å‰å¼•ç”¨ä¸ºå½©è‰²è¾¹æ¡†
             linkcolor=black,%
             citecolor=black,%
             pagecolor=black,%
             urlcolor=black]{hyperref}
 \fi
-% Ê¹ÕûÆªÎÄÕÂµÄÊ×¶Î¶¼ÓĞËõ½ø
+% ä½¿æ•´ç¯‡æ–‡ç« çš„é¦–æ®µéƒ½æœ‰ç¼©è¿›
 %\let\@afterindentfalse\@afterindenttrue\@afterindenttrue
 
 %define the table of contents
@@ -91,12 +91,12 @@
 \setcounter{totalnumber}{6}
 \setcounter{topnumber}{3}
 \setcounter{bottomnumber}{3}
-%ºÜ¶àÈË·¢ÏÖÈ±Ê¡µÄ¸¡¶¯²ÎÊı¹ıÓÚÑÏ¸ñÁË¡£ÏÂÃæµÄÃüÁî
+%å¾ˆå¤šäººå‘ç°ç¼ºçœçš„æµ®åŠ¨å‚æ•°è¿‡äºä¸¥æ ¼äº†ã€‚ä¸‹é¢çš„å‘½ä»¤
 \renewcommand{\textfraction}{0.15}
 \renewcommand{\topfraction}{0.85}
 \renewcommand{\bottomfraction}{0.65}
 \renewcommand{\floatpagefraction}{0.60}
-%½«¸¡¶¯²ÎÊıÖØĞÂÉèÖÃÎª¸ü¿íËÉµÄÖµ¡£---Ñ¡×Ô¡¶Using Import graphics in LATEX2e¡·
+%å°†æµ®åŠ¨å‚æ•°é‡æ–°è®¾ç½®ä¸ºæ›´å®½æ¾çš„å€¼ã€‚---é€‰è‡ªã€ŠUsing Import graphics in LATEX2eã€‹
 \def\@maketitle{%
   \if@sheet%
   \makesheet%
