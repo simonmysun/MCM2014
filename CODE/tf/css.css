@@ -1,0 +1,13 @@
+#c {
+    margin: 10px;
+    padding: 0;
+}
+
+#log {
+    margin: 10px;
+    padding: 0;
+    border: 10 solid #ddd;
+    width: 1000px;
+    height: 150px;
+    background: #ffc;
+}
