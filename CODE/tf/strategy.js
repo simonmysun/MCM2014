@@ -32,35 +32,35 @@ function safe(a, b) {
     if((ba & bb) > 0) {
 	if(a.x > b.x) {
 	    if(a.speed > b.speed) {
-		return 1; //
+		return 1; // ahead and faster
 	    } else {
 		if(a.x - a.speed * backWarningRatio - a.len * 1.3 < b.x + b.speed * frontWarningRatio) {
 		    if(a.maxSpeed > b.maxSpeed) {
-			return 1; // 
+			return 0.5; // prior
 		    } else {
-			return 1; // 
+			return 0; // should give place
 		    }
 		} else {
-		    return 1; //
+		    return 1; // too far
 		}
 	    }
 	} else {
 	    if(a.speed < b.speed) {
-		return 1; //
+		return 1; // behind and slower
 	    } else {
 		if(a.x + a.speed * frontWarningRatio > b.x - b.speed * backWarningRatio - b.len * 1.3) {
 		    if(a.maxSpeed > b.maxSpeed) {
-			return 0; //
+			return 0.5; // prior
 		    } else {
-			return 0; //
+			return 0; // should give place
 		    }
 		} else {
-		    return 1; //
+		    return 1; // 
 		}
 	    }
 	}
     }
-    return 1; // 根本不着边
+    return 1; // no conflict
 }
 
 function strategyNon(car, carList){
