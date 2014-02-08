@@ -129,21 +129,33 @@ function strategyA(car, carList){
 	    if(__flag == 1) {
 		car.speed = Math.max(0, car.speed - car.maxSpeed / brakeRatio);
 	    } else {
-		car.o = 'right';
-		car.offset = 3.5;
-		_log('turn right');
-		//turn right
+		if(car.offset == 0) {
+		    car.o = 'right';
+		    car.offset = 1.5;
+		}
 	    }
 	} else {
-	    car.o = 'left';
-	    car.offset = 3.5;
-	    _log('turn left');
-	    //turn left
+	    if(car.offset == 0) {
+		car.o = 'left';
+		car.offset = 1.5;
+	    }
 	}
     } else {
 	car.speed = Math.min(car.maxSpeed, car.speed + car.maxSpeed / accelerateRatio);
     }
 }
 
-function strategyB(car, row) {
+function strategyB(car, carList) {
+    var _speedrow=[0,40,83,126,150];
+    var flag = 0;
+    
+    strategyWait(car,carList);
+    if(car.speed > _speedrow[4-car.row] && car.offset == 0){	
+	car.o='left';
+	car.offset = 1.5;
+    }
+    if(car.speed < _speedrow[4-car.row-1] && car.offset == 0){
+	car.o='right';
+	car.offset = 1.5;
+    }
 }

@@ -4,17 +4,18 @@ backWarningRatio = 0.001;
 brakeRatio = 7.0;
 accelerateRatio = 15.0;
 minSpeed = 0.1;
+lambda = 1.0;
 
 test = 1;
 stop = 0;
 
 ticks = 0;
 cars = 0;
-totTicks = 0;
+totTicks = [];
+totTicks.sum = 0;
 currentCars = 0;
 
 currentStrategy = 2;
-
 strategy = [
     function(car, l) {
 	strategyNon(car, l);
@@ -62,7 +63,11 @@ var letThereBeState = function() {
 	for(var k in s.carList) {
 	    var car = s.carList[k];
 	    if(car.x > 10000) {
-		totTicks += ticks - car.startTicks;
+		totTicks.push(ticks - car.startTicks);
+		totTicks.sum += ticks - car.startTicks;
+		if(totTicks.length > 100) {
+		    totTicks.sum -= totTicks.shift();
+		}
 		cars ++ ;
 		currentCars --;
 		delete s.carList[k];
@@ -93,7 +98,7 @@ var letThereBeState = function() {
 		}
 	    }
 	    if(flag == 0) {
-		if(Math.random() < 0.01) {
+		if(Math.random() < lambda) {
 		    s.newCar(r);
 		    currentCars ++ ;
 		}
@@ -207,8 +212,8 @@ function watch() {
     var html = '';
     html = html.concat(toMessage('Start ticks', ticks));
     html = html.concat(toMessage('Vehicles passed', cars));
-    html = html.concat(toMessage('Total ticks', totTicks));
-    html = html.concat(toMessage('Average ticks', Math.floor(totTicks / cars)));
+    html = html.concat(toMessage('Total ticks', totTicks.sum));
+    html = html.concat(toMessage('Average ticks', Math.floor(totTicks.sum / 100)));
     html = html.concat(toMessage('Current cars',currentCars));
     //html = html.concat(toMessage('',));
     $('#log').html(html);
@@ -225,6 +230,12 @@ window.onload = function() {
 	    } else {
 		test = 1;
 	    }
+	});
+	$('#strategy').change(function() {
+	    currentStrategy = parseInt($('#strategy').val());
+	});
+	$('#lambda').change(function() {
+	    lambda = parseFloat($('#lambda').val());
 	});
 	idle();
 	setInterval(watch, 500);

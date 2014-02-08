@@ -6,7 +6,23 @@
     <link href="css.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
-    <h1>Traffic Flow<button id="toggle">Process</button></h1>
+    <h1>
+      Traffic Flow
+      <button id="toggle">
+	Process
+      </button>
+      <select id="strategy">
+	<option value="0" selected="selected">0</option>
+	<option value="1">1</option>
+	<option value="2">2</option>
+	<option value="3">3</option>
+	<option value="4">4</option>
+	<option value="5">5</option>
+	<option value="6">6</option>
+	<option value="7">7</option>
+      </select>
+      <input id="lambda" type="text" value="0.03"/>
+    </h1>
     <canvas id="c" width="1000" height="100" style="border:10px solid #c3c3c3;">
       Your browser does not support the HTML5 canvas tag.
     </canvas>
