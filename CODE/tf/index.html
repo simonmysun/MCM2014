@@ -9,8 +9,9 @@
     <h1>
       Traffic Flow
       <button id="toggle">
-	Process
+	Toggle Speed
       </button>
+      Strategy: 
       <select id="strategy">
 	<option value="0" selected="selected">0</option>
 	<option value="1">1</option>
@@ -21,6 +22,14 @@
 	<option value="6">6</option>
 	<option value="7">7</option>
       </select>
+      Row: 
+      <select id="row">
+	<option value="1">1</option>
+	<option value="2">2</option>
+	<option value="3">3</option>
+	<option value="4" selected="selected">4</option>
+      </select>
+      Lambda: 
       <input id="lambda" type="text" value="0.03"/>
     </h1>
     <canvas id="c" width="1000" height="100" style="border:10px solid #c3c3c3;">

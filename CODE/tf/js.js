@@ -240,6 +240,9 @@ window.onload = function() {
 	$('#strategy').change(function() {
 	    currentStrategy = parseInt($('#strategy').val());
 	});
+	$('#row').change(function() {
+	    maxRow = parseInt($('#row').val());
+	});
 	$('#lambda').change(function() {
 	    lambda = parseFloat($('#lambda').val());
 	});
