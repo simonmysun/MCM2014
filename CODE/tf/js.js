@@ -4,7 +4,7 @@ backWarningRatio = 0.001;
 brakeRatio = 7.0;
 accelerateRatio = 15.0;
 minSpeed = 0.1;
-lambda = 1.0;
+lambda = 0.03;
 
 test = 1;
 stop = 0;
@@ -15,7 +15,7 @@ totTicks = [];
 totTicks.sum = 0;
 currentCars = 0;
 
-currentStrategy = 2;
+currentStrategy = 0;
 strategy = [
     function(car, l) {
 	strategyNon(car, l);
@@ -31,6 +31,12 @@ strategy = [
     }
     ,function(car, l) {
 	strategyC(car, l);
+    }
+    ,function(car, l) {
+	strategyD(car, l);
+    }
+    ,function(car, l) {
+	strategyE(car, l);
     }
 ];
 

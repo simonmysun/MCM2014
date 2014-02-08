@@ -131,13 +131,13 @@ function strategyA(car, carList){
 	    } else {
 		if(car.offset == 0) {
 		    car.o = 'right';
-		    car.offset = 1.5;
+		    car.offset = 5.5;
 		}
 	    }
 	} else {
 	    if(car.offset == 0) {
 		car.o = 'left';
-		car.offset = 1.5;
+		car.offset = 5.5;
 	    }
 	}
     } else {
@@ -149,13 +149,23 @@ function strategyB(car, carList) {
     var _speedrow=[0,40,83,126,150];
     var flag = 0;
     
-    strategyWait(car,carList);
-    if(car.speed > _speedrow[4-car.row] && car.offset == 0){	
+    if(car.maxSpeed > _speedrow[4-car.row] && car.offset == 0) {	
 	car.o='left';
 	car.offset = 1.5;
     }
-    if(car.speed < _speedrow[4-car.row-1] && car.offset == 0){
+    if(car.maxSpeed < _speedrow[4-car.row-1] && car.offset == 0) {
 	car.o='right';
 	car.offset = 1.5;
     }
+    strategyWait(car,carList);
+}
+
+function strategyC(car, carList) {
+    
+}
+function strategyD(car, carList) {
+    
+}
+function strategyE(car, carList) {
+    
 }
