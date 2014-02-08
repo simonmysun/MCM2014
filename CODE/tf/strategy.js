@@ -36,9 +36,9 @@ function safe(a, b) {
 	    } else {
 		if(a.x - a.speed * backWarningRatio - a.len * 1.3 < b.x + b.speed * frontWarningRatio) {
 		    if(a.maxSpeed > b.maxSpeed) {
-			return 0.5; // prior
+			return 2; // prior
 		    } else {
-			return 0; // should give place
+			return 1.5; // should give place
 		    }
 		} else {
 		    return 1; // too far
@@ -55,12 +55,13 @@ function safe(a, b) {
 			return 0; // should give place
 		    }
 		} else {
-		    return 1; // 
+		    return 1; // too for
 		}
 	    }
 	}
+    } else {
+	return 1; // no conflict
     }
-    return 1; // no conflict
 }
 
 function strategyNon(car, carList){
@@ -71,16 +72,11 @@ function strategyNon(car, carList){
 function strategyWait(car, carList){
     var flag = 0;
     for(var x in carList) {
-	/*if(car!=carList[x]) {
-	    if(car.row == carList[x].row) {
-		if(car.x + car.speed * accelerateRatio + carList[x].len * 1.5 > carList[x].x - carList[x].speed * backWarningRatio && car.x < carList[x].x) {
-		    flag = 1;
-		    break;
-		}
+	if(car != carList[x]) {
+	    var safeStatus = safe(car, carList[x]);
+	    if(safeStatus < 1) {
+		flag = 1;
 	    }
-	}*/
-	if(car != carList[x] && safe(car, carList[x]) == 0) {
-	    flag = 1;
 	}
     }
     if(flag == 1) {
@@ -92,6 +88,20 @@ function strategyWait(car, carList){
 }
 
 function strategyA(car, carList) {
+    var flag = 0;
+    for(var x in carList) {
+	if(car != carList[x]) {
+	    var safeStatus = safe(car, carList[x]);
+	    if(safeStatus < 1) {
+		flag = 1;
+	    }
+	}
+    }
+    if(flag == 1) {
+	car.speed = car.speed * brakeRatio;
+    } else {
+	car.speed = Math.min(car.maxSpeed, Math.max(car.speed, 0.1) * accelerateRatio);
+    }
     car.x += car.speed;
 }
 
