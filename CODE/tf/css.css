@@ -9,5 +9,6 @@
     border: 10 solid #ddd;
     width: 1000px;
     height: 150px;
+    overflow: scroll;
     background: #ffc;
 }

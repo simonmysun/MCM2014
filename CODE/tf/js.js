@@ -1,63 +1,74 @@
- mvar letThereBeState = function() {
+maxRow = 4;
+frontWarningRatio = 1.8;
+backWarningRatio = 0.3;
+brakeRatio = 0.8;
+accelerateRatio = 1.2;
+
+var letThereBeState = function() {
     var s = {};
     s.row = [];
     s.distribution = [];
     s.init = function() {
 	s.row = [];
-	for(var x = 0; x < 5; x ++ ) {
+	for(var x = 0; x < maxRow; x ++ ) {
 	    s.row[x] = [];
 	}
     };
     s.carList = [];
     s.newCar = function(r) {
 	var car = {};
-	car.len = 15 + Math.random() * 10;
-	car.maxSpeed = Math.floor(50 + Math.random() * 100);
-	car.speed = car.maxSpeed;
+	car.len = 150 + Math.random() * 100;
+	car.maxSpeed = Math.floor(20 + Math.random() * 130);
+	car.speed = 1;
 	car.row = r;
 	car.startTime = new Date();
 	car.x = 0;
 	car.o = 'streight';
+	car.offset = 0;
 	s.carList.push(car);
+	s.row[car.row].push(car);
     };
-    s.determine = function() {
-	for(var x in s.carList) {
-	    if(s.carList[x].x > 10000) {
-		delete s.carList[x];
+    s.determine = function(callback) {
+	for(var k in s.carList) {
+	    var car = s.carList[k];
+	    if(car.x > 10000) {
+		delete s.carList[k];
 		continue;
 	    }
-	    s.carList[x].x += s.carList[x].speed;
+	    if(car.offset < 0) {
+		if(car.o == 'left') {
+		    car.row -- ;
+		} else {
+		    car.row ++ ;
+		}
+		car.o = 'streight';
+	    }
+	    if(car.offset > 0) {
+		car.offset -- ;
+	    }
+	    //strategyNon(car, s.carList);
+	    strategyWait(car, s.carList);
+	    //strategyA(car, s.carList);
+	    //strategyB(car, s.carList);
+	    //strategyC(car, s.carList);
 	}
+	callback();
     }
-    s.refresh = function() {
-	s.init();
-	for(var k in s.carList) {
-	    if(s.carList[k] != "undefined") {
-		var l = s.carList[k].x - 100;
-		l = l > 0 ? l : 0;
-		var r = s.carList[k].x + s.carList[k].speed * 1.5;
-		var o = s.carList[k].o;
-		var y = s.carList[k].row
-		for(var x = l; x <= r; x ++) {
-		    if(o == 'left') {
-			s.row[y][x - 1] = 1;
-			s.row[y][x] = 1;
-		    } else if(o == 'right') {
-			s.row[y][x] = 1;
-			s.row[y][x + 1] = 1;
-		    } else {
-			s.row[y][x] = 1;
-		    }
+    s.refresh = function(callback) {
+	for(var r = 0; r < maxRow; r ++ ) {
+	    var flag = 0;
+	    for(var c in s.row[r]) {
+		if(s.row[r][c].x < s.row[r][c].len + s.row[r][c].maxSpeed * 1.8) {
+		    flag = 1;
 		}
 	    }
-	}
-	for(var r = 0; r < 5; r ++ ) {
-	    if(s.row[r][0] != 1) {
-		if(Math.random() < 0.05) {
+	    if(flag == 0) {
+		if(Math.random() < 0.3) {
 		    s.newCar(r);
 		}
 	    }
 	}
+	s.determine(callback);
     };
     return s;
 }
@@ -74,8 +85,8 @@ function drawDashedLine(ctx, x1, y1, x2, y2, dashLength) {
 };
 
 function _log(m) {
-    console.log("m");
-    $('#log').append('<p>' + m.toString +'</p>');
+    console.log(m);
+    $('#log').append('<p>' + m.toString() +'</p>');
 }
 
 function drawCar(ctx, car, row, x, o, s) {
@@ -90,15 +101,15 @@ function drawCar(ctx, car, row, x, o, s) {
     if(o == 'streight') {
 	ctx.beginPath();
 	ctx.moveTo(x, y);
-	ctx.lineTo(x - car.len, y);
+	ctx.lineTo(x - car.len / 10.0, y);
 	ctx.lineTo(x, y + 5);
 	ctx.lineTo(x, y);
-	ctx.lineTo(x - car.len, y + 5);
+	ctx.lineTo(x - car.len / 10.0, y + 5);
 	ctx.lineTo(x, y + 5);
 	ctx.fill();
     } else if(o == 'left') {
-	y = y - 10 - car.len / 2.0;
-	var l = car.len / Math.sqrt(2.0);
+	y = y - 10 - car.len / 10.0 / 2.0;
+	var l = car.len / 10.0 / Math.sqrt(2.0);
 	var w = 5 / Math.sqrt(2.0);
 	ctx.beginPath();
 	ctx.moveTo(x, y);
@@ -125,27 +136,29 @@ function drawCar(ctx, car, row, x, o, s) {
 }
 
 function idle() {
-    currentState.refresh();
-    currentState.determine();
-    var ctx = canvas.getContext("2d");
-    ctx.clearRect(0, 0, 1000, 200);
-    ctx.fillStyle = "#336";
-    ctx.fillRect(0, 0, 1000, 200);
-    ctx.lineWidth = 3;
-    ctx.strokeStyle = '#eed';
-    drawDashedLine(ctx, 0, 25, 1000, 25, 15);
-    drawDashedLine(ctx, -15, 50, 1015, 50, 15);
-    drawDashedLine(ctx, 0, 75, 1000, 75, 15);
-    for(var c in currentState.carList) {
-	var car = currentState.carList[c];
-	drawCar(ctx, car, car.row, car.x, car.o, car.speed - car.maxSpeed);
-    }
+    console.log("tick");
+    currentState.refresh(function() {
+	var ctx = canvas.getContext("2d");
+	ctx.clearRect(0, 0, 1000, 200);
+	ctx.fillStyle = "#336";
+	ctx.fillRect(0, 0, 1000, 200);
+	ctx.lineWidth = 3;
+	ctx.strokeStyle = '#eed';
+	drawDashedLine(ctx, 0, 25, 1000, 25, 15);
+	drawDashedLine(ctx, -15, 50, 1015, 50, 15);
+	drawDashedLine(ctx, 0, 75, 1000, 75, 15);
+	for(var c in currentState.carList) {
+	    var car = currentState.carList[c];
+	    drawCar(ctx, car, car.row, car.x, car.o, car.speed - car.maxSpeed);
+	}
+    });
 }
 
 window.onload = function() {
     $(document).ready(function() {
 	canvas = $('#c')[0];
 	currentState = letThereBeState();
-	setInterval(idle,10);
+	currentState.init();
+	setInterval(idle,25);
     });
 }
