@@ -119,7 +119,7 @@
   \par
   \vskip 1.5em%
   \if@abstract%
-  \make@abstract%
+  %\make@abstract%
   \fi%
 }
 \def\keywordsname{\bf Key Words:}
@@ -135,9 +135,9 @@
 \def\endkeywords{\egroup\egroup}%
 \def\make@abstract{%
 \par%
-\centerline{\bf\abstractname}\vskip5pt\par%
+%\centerline{\bf\abstractname}\vskip5pt\par%
 \noindent\usebox\@abstract\par%
-\noindent\hskip1cm\keywordsname\ \usebox\@keywords%
+\noindent\hskip1cm\keywordsname\usebox\@keywords%
 \vskip10pt%
 }
 
@@ -231,7 +231,7 @@
 \par%
 \vskip 1.5em%
 \centerline{\large\bf\abstractname}
-\noindent\usebox\@abstract%
+\noindent\make@abstract%
 \endgroup}
 
 \endinput

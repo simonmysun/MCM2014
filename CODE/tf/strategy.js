@@ -4,6 +4,7 @@ function collision(a, b) {
 
 function strategyNon(car, carList){
     car.x += car.speed;
+    car.speed = Math.min(car.maxSpeed, Math.max(car.speed, 0.1) * accelerateRatio);
 }
 
 function strategyWait(car, carList){

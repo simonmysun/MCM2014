@@ -4,7 +4,7 @@
 
 \usepackage[25324]{MCMthesis}  %队号在这里填写
 %\usepackage[175,nosheet]{MCMthesis}%这个参数形式可去掉summary sheet首页。
-\problem{B}  %选题
+\problem{A}  %选题
 %===============设置正文和数学字体=============================
 %有些字体需要安装一些字体文件，注意辨别。
 %我参照 MCM论文集的字体 使用如下宏包来定制字体。
@@ -13,16 +13,16 @@
 %设置段落之间的距离，若不需要删除或者注释掉即可。
 \setlength\parskip{.5\baselineskip}
 
-%\def\abstractname{Summary}%可修改摘要名称
+\def\abstractname{Summary}%可修改摘要名称
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%$$$$$$$==正文开始==$$$$$$$%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %==========================论文标题===============================
-\title{The \LaTeX Template for  MCM}
+\title{The \LaTeX Template for MCM}
 \author{\small {Maoyin Sun, Hailong Qian, Ge Jin}} 
-\date{\today}
+\date{February 10, 2014}
 %=================================================================
 %==================================================================
 \begin{document}
@@ -38,13 +38,13 @@ keyword1; keyword2; keyword3
 \maketitle
 \pagestyle{empty}
 %
-\newpage                                                          %
+%\newpage                                                          %
 %==================================================================
 
 
 %====================生=成=目=录===================================
-%\tableofcontents                                                  %                                            %
-%\newpage
+\tableofcontents                                                  %                                            %
+\newpage
 \pagestyle{fancy}                                                     %
 %==================================================================
 \input{body.tex}

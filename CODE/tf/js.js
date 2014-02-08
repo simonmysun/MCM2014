@@ -46,8 +46,8 @@ var letThereBeState = function() {
 	    if(car.offset > 0) {
 		car.offset -- ;
 	    }
-	    //strategyNon(car, s.carList);
-	    strategyWait(car, s.carList);
+	    strategyNon(car, s.carList);
+	    //strategyWait(car, s.carList);
 	    //strategyA(car, s.carList);
 	    //strategyB(car, s.carList);
 	    //strategyC(car, s.carList);
