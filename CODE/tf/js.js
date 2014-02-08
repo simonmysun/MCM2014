@@ -1,9 +1,10 @@
 maxRow = 4;
-frontWarningRatio = 1.8;
+frontWarningRatio = 5.0;
 backWarningRatio = 0.3;
 brakeRatio = 0.8;
 accelerateRatio = 1.2;
 test = 1;
+stop = 0;
 
 ticks = 0;
 cars = 0;
@@ -73,7 +74,7 @@ var letThereBeState = function() {
 		}
 	    }
 	    if(flag == 0) {
-		if(Math.random() < 0.3) {
+		if(Math.random() < 0.1) {
 		    s.newCar(r);
 		    currentCars ++ ;
 		}
@@ -186,6 +187,7 @@ function watch() {
     html = html.concat(toMessage('Vehicles passed', cars));
     html = html.concat(toMessage('Total ticks', totTicks));
     html = html.concat(toMessage('Average ticks', Math.floor(totTicks / cars)));
+    html = html.concat(toMessage('Current cars',currentCars));
     //html = html.concat(toMessage('',));
     $('#log').html(html);
 }
@@ -202,8 +204,6 @@ window.onload = function() {
 		test = 1;
 	    }
 	});
-	var idleLoop = {};
-	var watchLoop = {};
 	idle();
 	setInterval(watch, 500);
     });
