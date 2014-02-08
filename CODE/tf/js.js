@@ -1,8 +1,8 @@
 maxRow = 4;
 frontWarningRatio = 5.0;
 backWarningRatio = 0.001;
-brakeRatio = 7;
-accelerateRatio = 15;
+brakeRatio = 7.0;
+accelerateRatio = 15.0;
 minSpeed = 0.1;
 
 test = 1;
