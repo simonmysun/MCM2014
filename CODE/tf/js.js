@@ -13,6 +13,26 @@ cars = 0;
 totTicks = 0;
 currentCars = 0;
 
+currentStrategy = 2;
+
+strategy = [
+    function(car, l) {
+	strategyNon(car, l);
+    }
+    ,function(car, l) {
+	strategyWait(car, l);
+    }
+    ,function(car, l) {
+	strategyA(car, l);
+    }
+    ,function(car, l) {
+	strategyB(car, l);
+    }
+    ,function(car, l) {
+	strategyC(car, l);
+    }
+];
+
 var letThereBeState = function() {
     var s = {};
     s.row = [];
@@ -29,7 +49,7 @@ var letThereBeState = function() {
 	var car = {};
 	car.len = 150 + Math.random() * 100;
 	car.maxSpeed = Math.floor(20 + Math.random() * 130);
-	car.speed = 1;
+	car.speed = 0;
 	car.row = r;
 	car.startTicks = ticks;
 	car.x = 0;
@@ -54,16 +74,13 @@ var letThereBeState = function() {
 		} else {
 		    car.row ++ ;
 		}
+		car.offset = 0;
 		car.o = 'streight';
 	    }
 	    if(car.offset > 0) {
-		car.offset -- ;
+		car.offset -= 1 ;
 	    }
-	    //strategyNon(car, s.carList);
-	    strategyWait(car, s.carList);
-	    //strategyA(car, s.carList);
-	    //strategyB(car, s.carList);
-	    //strategyC(car, s.carList);
+	    strategy[currentStrategy](car, s.carList);
 	}
 	callback();
     }
@@ -76,7 +93,7 @@ var letThereBeState = function() {
 		}
 	    }
 	    if(flag == 0) {
-		if(Math.random() < 0.1) {
+		if(Math.random() < 0.01) {
 		    s.newCar(r);
 		    currentCars ++ ;
 		}
@@ -133,8 +150,8 @@ function drawCar(ctx, car, row, x, o, s) {
 	ctx.lineTo(x + w, y + w);
 	ctx.fill();
     } else {
-	y = y + 15 + car.len / 2.0;
-	var l = car.len / Math.sqrt(2.0);
+	y = y + 15 + car.len / 10 / 2.0;
+	var l = car.len / 10.0 / Math.sqrt(2.0);
 	var w = 5 / Math.sqrt(2.0);
 	ctx.beginPath();
 	ctx.moveTo(x, y);
@@ -154,6 +171,9 @@ function idle() {
     }
     ticks ++ ;
     currentState.refresh(function() {
+	for(var c in currentState.carList) {
+	    currentState.carList[c].x += currentState.carList[c].speed;
+	}
 	if(test == 1) {
 	    var ctx = canvas.getContext("2d");
 	    ctx.clearRect(0, 0, 1000, 200);

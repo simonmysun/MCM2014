@@ -10,9 +10,13 @@ function cloneObject(obj){
     }
     return o;
 }
-function turn(car,o) {
+function turn(car, o) {
     var _car = cloneObject(car);
-    _car.o = o;
+    if(o == 'left') {
+	_car.row -- ;
+    } else {
+	_car.row ++ ;
+    }
     return _car;
 }
 
@@ -69,25 +73,7 @@ function strategyNon(car, carList){
     car.speed = Math.min(car.maxSpeed, Math.max(car.speed, 0.1) * accelerateRatio);
 }
 
-function strategyWait(car, carList){
-    var flag = 0;
-    for(var x in carList) {
-	if(car != carList[x]) {
-	    var safeStatus = safe(car, carList[x]);
-	    if(safeStatus < 1) {
-		flag = 1;
-	    }
-	}
-    }
-    if(flag == 1){ 
-	car.speed = Math.max(0, car.speed - car.maxSpeed / brakeRatio);
-    } else {
-	car.speed = Math.min(car.maxSpeed, car.speed + car.maxSpeed / accelerateRatio);
-    }
-    car.x += car.speed;
-}
-
-function strategyA(car, carList) {
+function strategyWait(car, carList) {
     var flag = 0;
     for(var x in carList) {
 	if(car != carList[x]) {
@@ -98,11 +84,65 @@ function strategyA(car, carList) {
 	}
     }
     if(flag == 1) {
-	car.speed = Math.max(minSpeed, car.speed * brakeRatio);
+	car.speed = Math.max(0, car.speed - car.maxSpeed / brakeRatio);
     } else {
-	car.speed = Math.min(car.maxSpeed, Math.max(car.speed, 0.1) * accelerateRatio);
+	car.speed = Math.min(car.maxSpeed, car.speed + car.maxSpeed / accelerateRatio);
     }
-    car.x += car.speed;
+}
+
+function strategyA(car, carList){
+    var flag = 0;
+    for(var x in carList) {
+	if(car != carList[x]) {
+	    var safeStatus = safe(car, carList[x]);
+	    if(safeStatus < 1) {
+		flag = 1;
+	    }
+	}
+    }
+    if(flag == 1) {
+	var _flag = 0;
+	if(car.row == 0) {
+	    _flag = 1;
+	}
+	for(var x in carList) {
+	    if(car != carList[x]) {
+		var safeStatus = safe(turn(car, 'left'), carList[x]);
+		if(safeStatus < 1) {
+		    _flag = 1;
+		}
+	    }
+	}
+	if(_flag == 1) {
+	    var __flag = 0;
+	    if(car.row == maxRow - 1) {
+		__flag = 1;
+	    }
+	    for(var x in carList) {
+		if(car != carList[x]) {
+		    var safeStatus = safe(turn(car, 'right'), carList[x]);
+		    if(safeStatus < 1) {
+			__flag = 1;
+		    }
+		}
+	    }
+	    if(__flag == 1) {
+		car.speed = Math.max(0, car.speed - car.maxSpeed / brakeRatio);
+	    } else {
+		car.o = 'right';
+		car.offset = 3.5;
+		_log('turn right');
+		//turn right
+	    }
+	} else {
+	    car.o = 'left';
+	    car.offset = 3.5;
+	    _log('turn left');
+	    //turn left
+	}
+    } else {
+	car.speed = Math.min(car.maxSpeed, car.speed + car.maxSpeed / accelerateRatio);
+    }
 }
 
 function strategyB(car, row) {
