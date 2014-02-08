@@ -3,12 +3,19 @@ frontWarningRatio = 1.8;
 backWarningRatio = 0.3;
 brakeRatio = 0.8;
 accelerateRatio = 1.2;
+test = 1;
+
+ticks = 0;
+cars = 0;
+totTicks = 0;
+currentCars = 0;
 
 var letThereBeState = function() {
     var s = {};
     s.row = [];
     s.distribution = [];
     s.init = function() {
+	s.carList = [];
 	s.row = [];
 	for(var x = 0; x < maxRow; x ++ ) {
 	    s.row[x] = [];
@@ -21,7 +28,7 @@ var letThereBeState = function() {
 	car.maxSpeed = Math.floor(20 + Math.random() * 130);
 	car.speed = 1;
 	car.row = r;
-	car.startTime = new Date();
+	car.startTicks = ticks;
 	car.x = 0;
 	car.o = 'streight';
 	car.offset = 0;
@@ -32,6 +39,9 @@ var letThereBeState = function() {
 	for(var k in s.carList) {
 	    var car = s.carList[k];
 	    if(car.x > 10000) {
+		totTicks += ticks - car.startTicks;
+		cars ++ ;
+		currentCars --;
 		delete s.carList[k];
 		continue;
 	    }
@@ -46,8 +56,8 @@ var letThereBeState = function() {
 	    if(car.offset > 0) {
 		car.offset -- ;
 	    }
-	    strategyNon(car, s.carList);
-	    //strategyWait(car, s.carList);
+	    //strategyNon(car, s.carList);
+	    strategyWait(car, s.carList);
 	    //strategyA(car, s.carList);
 	    //strategyB(car, s.carList);
 	    //strategyC(car, s.carList);
@@ -65,6 +75,7 @@ var letThereBeState = function() {
 	    if(flag == 0) {
 		if(Math.random() < 0.3) {
 		    s.newCar(r);
+		    currentCars ++ ;
 		}
 	    }
 	}
@@ -86,7 +97,6 @@ function drawDashedLine(ctx, x1, y1, x2, y2, dashLength) {
 
 function _log(m) {
     console.log(m);
-    $('#log').append('<p>' + m.toString() +'</p>');
 }
 
 function drawCar(ctx, car, row, x, o, s) {
@@ -136,22 +146,48 @@ function drawCar(ctx, car, row, x, o, s) {
 }
 
 function idle() {
-    console.log("tick");
+    if(test == 1) {
+	console.log("tick");
+    }
+    ticks ++ ;
     currentState.refresh(function() {
-	var ctx = canvas.getContext("2d");
-	ctx.clearRect(0, 0, 1000, 200);
-	ctx.fillStyle = "#336";
-	ctx.fillRect(0, 0, 1000, 200);
-	ctx.lineWidth = 3;
-	ctx.strokeStyle = '#eed';
-	drawDashedLine(ctx, 0, 25, 1000, 25, 15);
-	drawDashedLine(ctx, -15, 50, 1015, 50, 15);
-	drawDashedLine(ctx, 0, 75, 1000, 75, 15);
-	for(var c in currentState.carList) {
-	    var car = currentState.carList[c];
-	    drawCar(ctx, car, car.row, car.x, car.o, car.speed - car.maxSpeed);
+	if(test == 1) {
+	    var ctx = canvas.getContext("2d");
+	    ctx.clearRect(0, 0, 1000, 200);
+	    ctx.fillStyle = "#336";
+	    ctx.fillRect(0, 0, 1000, 200);
+	    ctx.lineWidth = 3;
+	    ctx.strokeStyle = '#eed';
+	    drawDashedLine(ctx, 0, 25, 1000, 25, 15);
+	    drawDashedLine(ctx, -15, 50, 1015, 50, 15);
+	    drawDashedLine(ctx, 0, 75, 1000, 75, 15);
+	    for(var c in currentState.carList) {
+		var car = currentState.carList[c];
+		drawCar(ctx, car, car.row, car.x, car.o, car.speed - car.maxSpeed);
+	    }
 	}
     });
+    var timeout = 0;
+    if(test == 1) {
+	timeout = 25;
+    } else {
+	timeout = 0;
+    }
+    setTimeout(idle, timeout);
+}
+
+function toMessage(key, value) {
+    return '<div class="message">' + key + ': ' + value + '</div>';
+}
+
+function watch() {
+    var html = '';
+    html = html.concat(toMessage('Start ticks', ticks));
+    html = html.concat(toMessage('Vehicles passed', cars));
+    html = html.concat(toMessage('Total ticks', totTicks));
+    html = html.concat(toMessage('Average ticks', Math.floor(totTicks / cars)));
+    //html = html.concat(toMessage('',));
+    $('#log').html(html);
 }
 
 window.onload = function() {
@@ -159,6 +195,16 @@ window.onload = function() {
 	canvas = $('#c')[0];
 	currentState = letThereBeState();
 	currentState.init();
-	setInterval(idle,25);
+	$('#toggle').click(function() {
+	    if(test == 1) {
+		test = 0;
+	    } else {
+		test = 1;
+	    }
+	});
+	var idleLoop = {};
+	var watchLoop = {};
+	idle();
+	setInterval(watch, 500);
     });
 }

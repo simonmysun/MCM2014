@@ -12,3 +12,11 @@
     overflow: scroll;
     background: #ffc;
 }
+
+.message {
+    border: 1 solid #0f0;
+    width: 315px;
+    margin: 4px;
+    overflow: auto;
+    float: left;
+}
