@@ -34,7 +34,7 @@ function safe(a, b) {
 	    if(a.speed > b.speed) {
 		return 1; // ahead and faster
 	    } else {
-		if(a.x - a.speed * backWarningRatio - a.len * 1.3 < b.x + b.speed * frontWarningRatio) {
+		if(a.x - backWarningRatio * Math.exp( - a.speed) - a.len * 1.3 < b.x + b.speed * frontWarningRatio) {
 		    if(a.maxSpeed > b.maxSpeed) {
 			return 2; // prior
 		    } else {
@@ -48,7 +48,7 @@ function safe(a, b) {
 	    if(a.speed < b.speed) {
 		return 1; // behind and slower
 	    } else {
-		if(a.x + a.speed * frontWarningRatio > b.x - b.speed * backWarningRatio - b.len * 1.3) {
+		if(a.x + a.speed * frontWarningRatio > b.x - backWarningRatio * Math.exp( - b.speed) - b.len * 1.3) {
 		    if(a.maxSpeed > b.maxSpeed) {
 			return 0.5; // prior
 		    } else {
@@ -79,10 +79,10 @@ function strategyWait(car, carList){
 	    }
 	}
     }
-    if(flag == 1) {
-	car.speed = car.speed * brakeRatio;
+    if(flag == 1){ 
+	car.speed = Math.max(0, car.speed - car.maxSpeed / brakeRatio);
     } else {
-	car.speed = Math.min(car.maxSpeed, Math.max(car.speed, 0.1) * accelerateRatio);
+	car.speed = Math.min(car.maxSpeed, car.speed + car.maxSpeed / accelerateRatio);
     }
     car.x += car.speed;
 }
@@ -98,7 +98,7 @@ function strategyA(car, carList) {
 	}
     }
     if(flag == 1) {
-	car.speed = car.speed * brakeRatio;
+	car.speed = Math.max(minSpeed, car.speed * brakeRatio);
     } else {
 	car.speed = Math.min(car.maxSpeed, Math.max(car.speed, 0.1) * accelerateRatio);
     }
