@@ -14,6 +14,8 @@ cars = 0;
 totTicks = [];
 totTicks.sum = 0;
 currentCars = 0;
+isPainting = 0;
+paintTicks = 2500;
 
 currentStrategy = 0;
 strategy = [
@@ -42,14 +44,9 @@ strategy = [
 
 var letThereBeState = function() {
     var s = {};
-    s.row = [];
     s.distribution = [];
     s.init = function() {
 	s.carList = [];
-	s.row = [];
-	for(var x = 0; x < maxRow; x ++ ) {
-	    s.row[x] = [];
-	}
     };
     s.carList = [];
     s.newCar = function(r) {
@@ -63,7 +60,6 @@ var letThereBeState = function() {
 	car.o = 'streight';
 	car.offset = 0;
 	s.carList.push(car);
-	s.row[car.row].push(car);
     };
     s.determine = function(callback) {
 	for(var k in s.carList) {
@@ -98,9 +94,11 @@ var letThereBeState = function() {
     s.refresh = function(callback) {
 	for(var r = 0; r < maxRow; r ++ ) {
 	    var flag = 0;
-	    for(var c in s.row[r]) {
-		if(s.row[r][c].x < s.row[r][c].len + s.row[r][c].maxSpeed * 1.8) {
-		    flag = 1;
+	    for(var c in s.carList) {
+		if(s.carList[c].row == r) {
+		    if(s.carList[c].x < s.carList[c].len + s.carList[c].maxSpeed * 1.8) {
+			flag = 1;
+		    }
 		}
 	    }
 	    if(flag == 0) {
@@ -177,6 +175,9 @@ function drawCar(ctx, car, row, x, o, s) {
 }
 
 function idle() {
+    if(isPainting > 0) {
+	paint();
+    }
     if(test == 1) {
 	console.log("tick");
     }
@@ -221,13 +222,17 @@ function watch() {
     html = html.concat(toMessage('Total ticks', totTicks.sum));
     html = html.concat(toMessage('Average ticks', Math.floor(totTicks.sum / 100)));
     html = html.concat(toMessage('Current cars',currentCars));
-    //html = html.concat(toMessage('',));
+     //html = html.concat(toMessage('',));
     $('#log').html(html);
 }
 
 window.onload = function() {
     $(document).ready(function() {
 	canvas = $('#c')[0];
+	graph = [];
+	for(var x = 0; x < 4; x ++) {
+	    graph[x] = $('#graph' + x)[0];
+	}
 	currentState = letThereBeState();
 	currentState.init();
 	$('#toggle').click(function() {
@@ -237,11 +242,18 @@ window.onload = function() {
 		test = 1;
 	    }
 	});
+	$('#row').change(function() {
+	    maxRow = parseInt($('#row').val());
+	});
 	$('#strategy').change(function() {
 	    currentStrategy = parseInt($('#strategy').val());
 	});
-	$('#row').change(function() {
-	    maxRow = parseInt($('#row').val());
+	$('#paint').click(function() {
+	    for(var x in graph) {
+		var ctx = graph[x].getContext("2d");
+		ctx.clearRect(0, 0, 250, 1000);
+	    }
+	    isPainting = 2500;
 	});
 	$('#lambda').change(function() {
 	    lambda = parseFloat($('#lambda').val());
@@ -251,4 +263,19 @@ window.onload = function() {
     });
 }
 
-function paint() {}
+function paint() {
+    for(var c in currentState.carList) {
+	var car = currentState.carList[c];
+	var ctx = graph[car.row].getContext("2d");
+	if(car.speed == car.maxSpeed) {
+	    ctx.fillStyle = "#2E81CE";
+	} else {
+	    ctx.fillStyle = "#CE2E81";
+	}
+	ctx.beginPath();
+	ctx.arc((25.0 / 800.0 * (car.x - 1000.0)), 1000 * (paintTicks - isPainting) / (paintTicks * 1.0), 1.0, 0.0, 2 * Math.PI, true);
+	ctx.closePath();
+	ctx.fill();
+    }
+    isPainting -- ;
+}
