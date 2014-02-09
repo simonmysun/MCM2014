@@ -10,6 +10,7 @@ function cloneObject(obj){
     }
     return o;
 }
+
 function turn(car, o) {
     var _car = cloneObject(car);
     if(o == 'left') {
