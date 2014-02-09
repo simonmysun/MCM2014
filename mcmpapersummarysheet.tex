@@ -2,8 +2,8 @@
 \documentclass[a4paper,11pt]{article}
 %======================Include Packages========================
 
-%\usepackage[25324]{MCMthesis}  %队号在这里填写
-\usepackage[175,nosheet]{MCMthesis}%这个参数形式可去掉summary sheet首页。
+\usepackage[25324]{MCMthesis}  %队号在这里填写
+%\usepackage[175,nosheet]{MCMthesis}%这个参数形式可去掉summary sheet首页。
 \problem{A}  %选题
 %===============设置正文和数学字体=============================
 %有些字体需要安装一些字体文件，注意辨别。
@@ -13,7 +13,7 @@
 %设置段落之间的距离，若不需要删除或者注释掉即可。
 \setlength\parskip{.5\baselineskip}
 
-\def\abstractname{Abstract}%可修改摘要名称
+\def\abstractname{Summary}%可修改摘要名称
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%$$$$$$$==正文开始==$$$$$$$%%%%%%%%%%%%%%%%%%%%%%%
@@ -29,23 +29,15 @@
 %摘要需要放在maketitle之前才能保证运行正常
 %====================摘=======要===================================
 \begin{abstract}
-
-\thispagestyle{empty}
-Abstract Abstract Abstract Abstract Abstract Abstract Abstract Abstract Abstract Abstract Abstract Abstract Abstract Abstract Abstract Abstract Abstract Abstract Abstract Abstract Abstract Abstract Abstract Abstract Abstract Abstract Abstract Abstract Abstract Abstract Abstract Abstract Abstract Abstract Abstract Abstract Abstract Abstract Abstract Abstract Abstract Abstract Abstract Abstract Abstract Abstract Abstract Abstract Abstract Abstract Abstract 
+Summary. 
 \begin{keywords}
 keyword1; keyword2; keyword3
 \end{keywords}
 \end{abstract}
 
 \maketitle
-\pagestyle{empty}
-\newpage         
-%====================生=成=目=录===================================
-\tableofcontents                                                  %                                           
-\newpage
-\pagestyle{fancy}                                                 %
+
 %==================================================================
-\input{body.tex}
 
 \end{document}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

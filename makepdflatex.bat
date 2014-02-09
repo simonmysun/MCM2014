@@ -2,4 +2,8 @@
 Call clean.bat
 pdflatex mcmpaper
 pdflatex mcmpaper
-start mcmpaper.pdf
+pdflatex mcmpapersummarysheet
+pdflatex mcmpapersummarysheet
+pdflatex main
+pdflatex main
+start main.pdf

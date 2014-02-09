@@ -185,22 +185,8 @@ function strategyB(car, carList) {
 	    car.offset = 1.5;	
 	}
     }
-    flag = 0;
-    for(var x in carList) {
-	if(car != carList[x]) {
-	    var safeStatus = safe(car, carList[x]);
-	    if(safeStatus < 1) {
-		flag = 1;		    
-		break;
-	    }
-	}
-    }
-    if(!flag) {
-	car.speed = Math.min(car.maxSpeed, car.speed + car.maxSpeed / accelerateRatio);
-    }
-    else {
-	car.speed = Math.max(0, car.speed - car.maxSpeed / brakeRatio);
-    }
+    strategyWait(car, carList);
+    //strategyA(car, carList);
 }
 
 function strategyC(car, carList) {

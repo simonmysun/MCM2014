@@ -7,4 +7,4 @@ del  *.bak  /s
 del  *.dvi  /s
 del  *.synctex.gz  /s
 del  *~  /s
-del  mcmpaper.pdf
+del  *.pdf /s

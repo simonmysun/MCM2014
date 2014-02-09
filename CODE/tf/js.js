@@ -250,3 +250,5 @@ window.onload = function() {
 	setInterval(watch, 500);
     });
 }
+
+function paint() {}
