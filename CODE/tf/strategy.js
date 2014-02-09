@@ -203,11 +203,32 @@ function strategyB(car, carList) {
 }
 
 function strategyC(car, carList) {
-    
+    var flag = 0;
+    if(car.row == maxRow - 1) {
+	flag = 1;
+    }
+    for(var x in carList) {
+	if(car != carList[x]) {
+	    var safeStatus = safe(turn(car, 'right'), carList[x]);
+	    if(safeStatus != 1) {
+		flag = 1;
+	    }
+	}
+    }
+    if(flag == 1) {
+    } else {
+	if(car.offset == 0) {
+	    car.o = 'right';
+	    car.offset = 5.5;
+	}
+    }
+    strategyA(car, carList);
 }
+
 function strategyD(car, carList) {
     
 }
+
 function strategyE(car, carList) {
     
 }
