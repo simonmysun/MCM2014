@@ -52,32 +52,32 @@
 \ifpdf
 \RequirePackage{epstopdf}
 \DeclareGraphicsExtensions{.pdf,.jpg,.jpeg,.png}
-\RequirePackage[bookmarks=true,%
-    linkcolor=black,%
-    citecolor=black,%
-    pagecolor=black,%
-    colorlinks=true, %注释掉此项则交叉引用为彩色边框(将colorlinks和pdfborder同时注释掉)
-    pdfborder=001,   %注释掉此项则交叉引用为彩色边框
-    linkcolor=black,%
-    citecolor=black,%
-    pagecolor=black,%
-    urlcolor=black]{hyperref}
+%\RequirePackage[bookmarks=true,%
+%    linkcolor=black,%
+%    citecolor=black,%
+%    pagecolor=black,%
+%    colorlinks=true, %注释掉此项则交叉引用为彩色边框(将colorlinks和pdfborder同时注释掉)
+%    pdfborder=001,   %注释掉此项则交叉引用为彩色边框
+%    linkcolor=black,%
+%    citecolor=black,%
+%    pagecolor=black,%
+%    urlcolor=black]{hyperref}
 \else
 \DeclareGraphicsExtensions{.eps,.ps}
-\RequirePackage[dvipdfm,  %pdflatex,pdftex    这里决定运行文件的方式不同
-            pdfstartview=FitH,%
-            CJKbookmarks=true,%
-            bookmarksnumbered=true,%
-            bookmarksopen=true,%
-            colorlinks=true, %注释掉此项则交叉引用为彩色边框(将colorlinks和pdfborder同时注释掉)
-            pdfborder=001,   %注释掉此项则交叉引用为彩色边框
-            linkcolor=black,%
-            citecolor=black,%
-            pagecolor=black,%
-            urlcolor=black]{hyperref}
+%\RequirePackage[dvipdfm,  %pdflatex,pdftex    这里决定运行文件的方式不同
+%            pdfstartview=FitH,%
+%            CJKbookmarks=true,%
+%            bookmarksnumbered=true,%
+%            bookmarksopen=true,%
+%            colorlinks=true, %注释掉此项则交叉引用为彩色边框(将colorlinks和pdfborder同时注释掉)
+%            pdfborder=001,   %注释掉此项则交叉引用为彩色边框
+%            linkcolor=black,%
+%            citecolor=black,%
+%            pagecolor=black,%
+%            urlcolor=black]{hyperref}
 \fi
 % 使整篇文章的首段都有缩进
-%\let\@afterindentfalse\@afterindenttrue\@afterindenttrue
+\let\@afterindentfalse\@afterindenttrue\@afterindenttrue
 
 %define the table of contents
 \renewcommand\tableofcontents{%
