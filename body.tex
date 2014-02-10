@@ -1,40 +1,94 @@
 \section{Introduction}
 \subsection{Introduction to the Problem}
-With the rapid development of science and technology, optimizing traffic flow has become an urgent demand of people around the world. Under the new conditions and prerequisites, the old rules may no longer apply. In order to address the problem above we conclude two sub-problems to tackle in our paper: 
+With the rapid development of science and technology, optimizing traffic flow has become an urgent demand of people around the world. 
+Under the new conditions and prerequisites, the old rules may no longer apply. 
+In order to address the problem above we conclude two sub-problems to tackle in our paper: 
 \begin{itemize}
-\item Analyze whether keep-right-except-to-pass rule work in new conditions including heavy traffic, more lanes, etc. Compare keep-right-except-to-pass rule and other alternatives and decide which is better at what need. Analyze robustness. 
+\item Analyze whether keep-right-except-to-pass rule work in new conditions including heavy traffic, more lanes, etc. 
+Compare keep-right-except-to-pass rule and other alternatives and decide which is better at what need. 
+Analyze its robustness. 
 \item Research how will the conclusion vary providing vehicles are controled by intellegent system. 
 \end{itemize}
 \subsection{Background}
-Attempts to produce a mathematical theory of traffic flow date back to the 1920s, when Frank Knight first produced an analysis of traffic equilibrium, which was refined into Wardrop's first and second principles of equilibrium in 1952\cite{trafficflowhistory}. In 1950s, CA(cellular automaton) model are raised by Von Neumann, and it called much attention in 1970s. S.Wolfram first implemented this model on addressing traffic flow\cite{1983RvMP...55..601W}. Since then quantities of CA models are proposed in the realm of traffic flow theory, such as NaSch model, FI model, BML model, etc. As civilization developed, old models are more and more limited. 
+Attempts to produce a mathematical theory of traffic flow date back to the 1920s, when Frank Knight first produced an analysis of traffic equilibrium, which was refined into Wardrop's first and second principles of equilibrium in 1952\cite{trafficflowhistory}. 
+In 1950s, CA(cellular automaton) model are raised by Von Neumann, and it called much attention in 1970s. 
+S.Wolfram first implemented this model on addressing traffic flow\cite{1983RvMP...55..601W}. 
+Since then quantities of CA models are proposed in the realm of traffic flow theory, such as NaSch model, FI model, BML model, etc. 
+As civilization developed, old models are more and more limited. 
 
 \subsection{Simulation Model}
-We developed a new traffic flow simulation model toolkit based on HTML5. With the function of collision pre-detection and fundamental diagram paiting, we can easily analyze the performance of individual strategies. 
+We developed a new traffic flow simulation model toolkit based on HTML5. 
+It's at most four rows in width and $100000$ units in length. 
+With the function of collision pre-detection and fundamental diagram paiting, we can easily analyze the performance of individual strategies. 
 \begin{figure}[H]
   \centering
   \includegraphics[width=.6\textwidth]{./img/simulationmodel.png}
   \caption{Strategy, max rows, and car amount can be changed instantly. In the fundamental diagram, blue points mean the vehicle is running at its fastest speed, red points means it's obstructed. }
   \label{fig:simulationmodel}
 \end{figure}
-Figure \ref{fig:simulationmodel} shows the interface simulation toolkit. And if we need faster calculation, we can toggle the animation and process with no delay. Time inside this system is based on ticks as a unit of time rather than real time, so the programme can maximize the computer capacity. 
+Figure \ref{fig:simulationmodel} shows the interface simulation toolkit. 
+And if we need faster calculation, we can toggle the animation and process with no delay. 
+Time inside this system is based on ticks as a unit of time rather than real time, so the programme can maximize the computer capacity. 
 
 Under this model we analyzed the formal individual strategies of vehicle drivers, estimated a trival upper bound of traffic efficiency, and tried to design an optimal self-adapting solution capable of all condition that make efficiency approach to the upper bound. 
 
 % event loop, collision pre-detection, lane changing are expandable
-
-\section{Assumptions}
+\section{Nomenclature and Terminology}
+\begin{table}[H]
+  \center{
+    \begin{tabular}{ccc}
+      \toprule
+      Variable & Description\\
+      \midrule
+      $R_m$ & Max width of the road, Counting by row from $0$. \\
+      $\theta_f$ & Front warning ratio, impact the collision pre-detect. \\
+      $\theta_b$ & Back warning ratio, impact the collision pre-detect. \\
+      $a_-$ & Accelerate factor of increasing speed. \\
+      $a_+$ & Accelerate factor of decreasing speed. \\
+      $\lambda_p$ & Vehicles quantity factor. \\
+      $\tilde{V}$ & Number of total vehicles passed by. \\
+      $V^k$ & The vehicle with id $k$. \\
+      $V^k_x$ & Distance the vehicle $V$ has traveled. \\
+      $V^k_c$ & Speed of the vehivle $V$. \\
+      $V^k_{c_{max}}$ & Max speed of vehicle $V$. \\
+      $k$ & Density of traffic flow. \\
+      \bottomrule
+    \end{tabular}
+  }
+\end{table}
+\section{Assumptions and Justification}
+\subsection{Assumptions}
 The argumentation in this paper is based on assumptions below. 
 \begin{itemize}
   \item Safety has the unconditional priority to any other goals; 
-  \item Roads in this paper refer to streight equal width roads. Vehicles travls along and across equal width lanes freely; 
+  \item Roadways in this paper refer to streight equal width roadways. Vehicles travls along and across equal width lanes freely; 
   \item The amount of vehicles at each time fits Poisson distribution\cite{breiman1963}; 
-  \item The length, max speed of vehicles evenly distributed in specific intervals; 
+  \item The length and max speed of vehicles evenly distributed in specific intervals($\text{length}\in\left[150, 250\right], \text{max speed}\in\left[20, 150\right]$); 
   \item As both speed and accelleration are related to the performance of the vehicle, we assumpt acelleration is linear to speed; 
-  \item Traveling across lanes make a car engaging two lanes for a while, and requires no other costs. 
+  \item Each vehicle will always accelerate to its max speed if there is mo concer; 
+  \item Traveling across lanes make a car engaging two lanes for a while, and requires no other costs; 
   \item Accidents are out of account; 
   \item Other enviromental condition remain stable; 
+  \item Tick is a atom unit of time in our model. Time is discrete and the aberration it leads to is ignored.
 \end{itemize}
-\section{Nomenclature and Terminology}
+\subsection{Justification}
+\paragraph{Collision Pre-detection}
+\subparagraph{Warning Ratio}
+In order to quantify the latent collision danger, and to make the threhold of collision warning clear, we define 'warning ratio' to calculate whether two car will collide. 
+
+We use $\theta$ to represent warning ratio. The number is calculated to avoid collision, so we have,  
+\[
+\theta_f=\frac{1}{2}\cdot\left(\frac{V_v}{a_-}\right)^2
+\]
+With the parameters we set, $\theta$ has the value of $24.5$. 
+
+\subgraph{}
+
+\subgraph{}
+
+\paragraph{Event Loop}
+
+\paragraph{Lane Changing}
 
 \section{Analysis}
 \subsection{The Distribution of Vehicles}
@@ -68,6 +122,7 @@ Precondition: Safety First. There shall be no collision
 \subsection{Weaknesses}
 
 \subsection{Sensitivity and Robustness}
+%需包括如何通过调整使得模型付诸于实际应用这个问题的分析。
 \section{Conclusion}
 
 
