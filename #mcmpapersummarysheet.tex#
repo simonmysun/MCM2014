@@ -32,9 +32,10 @@
 In this paper we discuss whether keeping going right is a good strategy for variable conditions. 
 We developed a new traffic flow simulation toolkits and formulated an automaton model. 
 From the mass of data we drew a conclusion that the 'keep-right-except-to-past' rule does not work anymore. 
-For better choice we designed several solutions, compared them and combine them to a r one. 
+For better choice we designed several solutions, implemented and compared them and combine their advantages. 
 With this toolkit we verified a trival upper bound of traffic efficency. 
-  
+The result is approaching the upperbound. 
+
 
 \begin{keywords}
 keyword1; keyword2; keyword3

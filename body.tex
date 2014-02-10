@@ -1,29 +1,29 @@
 \section{Introduction}
 \subsection{Introduction to the Problem}
-With the rapid development of science and technology, optimizing traffic flow has become an urgent demand of people around the world. 
-Under the new conditions and prerequisites, the old rules may no longer apply. 
-In order to address the problem above we conclude two sub-problems to tackle in our paper: 
+With the rapid development of science and technology, optimizing traffic flow has become an urgent demand for people around the world. 
+Under the new conditions and prerequisites, the old rules may be no longer applicable. 
+We split the problem into two sub-problems to tackle in our paper: 
 \begin{itemize}
 \item Analyze whether keep-right-except-to-pass rule work in new conditions including heavy traffic, more lanes, etc. 
 Compare keep-right-except-to-pass rule and other alternatives and decide which is better at what need. 
 Analyze its robustness. 
-\item Research how will the conclusion vary providing vehicles are controled by intellegent system. 
+\item Research how will the conclusion vary providing vehicles are controled by intelligent system. 
 \end{itemize}
 \subsection{Background}
 Attempts to produce a mathematical theory of traffic flow date back to the 1920s, when Frank Knight first produced an analysis of traffic equilibrium, which was refined into Wardrop's first and second principles of equilibrium in 1952\cite{trafficflowhistory}. 
-In 1950s, CA(cellular automaton) model are raised by Von Neumann, and it called much attention in 1970s. 
+In 1950s, CA(cellular automaton) model was raised by Von Neumann, and it captured much attention in 1970s. 
 S.Wolfram first implemented this model on addressing traffic flow\cite{1983RvMP...55..601W}. 
-Since then quantities of CA models are proposed in the realm of traffic flow theory, such as NaSch model, FI model, BML model, etc. 
+Since then great number of CA models are proposed in the realm of traffic flow theory, such as NaSch model, FI model, BML model, etc. 
 As civilization developed, old models are more and more limited. 
 
 \subsection{Simulation Model}
 We developed a new traffic flow simulation model toolkit based on HTML5. 
-It's at most four rows in width and $100000$ units in length. 
+It is at most four rows in width and $100000$ units in length. 
 With the function of collision pre-detection and fundamental diagram paiting, we can easily analyze the performance of individual strategies. 
 \begin{figure}[H]
   \centering
   \includegraphics[width=.6\textwidth]{./img/simulationmodel.png}
-  \caption{Strategy, max rows, and car amount can be changed instantly. In the fundamental diagram, blue points mean the vehicle is running at its fastest speed, red points means it's obstructed. }
+  \caption{Strategy, max rows, and car amount can be changed instantly. In the fundamental diagram, blue points mean the vehicle is running at its fastest speed, red points means it is obstructed. }
   \label{fig:simulationmodel}
 \end{figure}
 Figure \ref{fig:simulationmodel} shows the interface simulation toolkit. 
@@ -125,7 +125,7 @@ We will perform the action of lane changing as follows:
 \end{enumerate}
 We tested and watched the model performance and chose $5$ as expire time to make it real.
 
-We've successfully revealed common phenomenons of traffic flow. 
+We have successfully revealed common phenomenons of traffic flow. 
 Figure \ref{fig:jam} is a good illustration of traffic jam in one lane.
 \begin{figure}[H]
   \centering
@@ -136,7 +136,7 @@ Figure \ref{fig:jam} is a good illustration of traffic jam in one lane.
 
 \section{Analysis}
 \subsection{Left or Right}
-Our strategy and model doesn't acquire exact direction, but a stable one. Discussion below are based on right-hand based society. It won't matter if you swap the two directions. 
+Our strategy and model does not acquire exact direction, but a stable one. Discussion below are based on right-hand based society. It will not matter if you swap the two directions. 
 
 \subsection{The Keep-Right-Except-To-Pass Rule}
 The keep-right-except-to-pass employ a rule that requires drivers to drive in the right-most lane unless they are passing another vehicle, in which case they move one lane to the left, pass, and return to their former travel lane. 
@@ -157,7 +157,7 @@ Our model Also perfectly reveal this situation.
   \label{fig:keeprightgood}
 \end{figure}
 Figure \ref{fig:keeprightgood} shows that, on two lanes, either large amount of vehicles or few vehicles can occupy all the resourse. 
-There's much few redundancy. 
+There is much few redundancy. 
 
 However, under new condition this rule does not apply any more. 
 
@@ -169,26 +169,26 @@ However, under new condition this rule does not apply any more.
 \end{figure}
 Figure \ref{fig:keeprightgood} shows that at condition of four lanes, the keep-right-except-to-pass rule has emerged its disadvantages.
 At light traffic, vehicles change lanes frequently, and the left most lane is nearly vacant. 
-It's a waste of time and space. 
+It iss a waste of time and space. 
 At heavy traffic, vehicle still change lanes frequently, but remain slow all the time. 
 
 So we can conclude that, the keep-right-except-to-pass rule does not work well now. 
 
 \subsection{A Trival Upper Bound of Traffic Efficiency}
-In order to set goals and to compare, we did an experiment of observing the trival upper bound of traffic effiency. We canceled collision pre-detection, vehicels run freely. There's no congestion. So the statistic here is an upper bound of traffic efficiency. Figure \ref{fig:graphupperbound} shows the estimated trival upper bound of traffic efficiency. 
+In order to set goals and to compare, we did an experiment of observing the trival upper bound of traffic effiency. We canceled collision pre-detection, vehicels run freely. There is no congestion. So the statistic here is an upper bound of traffic efficiency. Figure \ref{fig:graphupperbound} shows the estimated trival upper bound of traffic efficiency. 
 
 \subsection{The Difference Between Human Judgment and Intelligent System}
 When taking intelligent system into consideration, we should get to know the difference. 
 Intellegent systems has rapid processing speed, sharp sensors, and fast radio communication. 
 We need to refractor the model to meet new demand. 
 \paragraph{Microscopic versus Marcoscopic}
-Human can't see too far, and they only have two eyes. 
+Human cannot see too far, and they only have two eyes. 
 Though the Internet has been already universal, information cannot get comprehend as fast as it appear. 
 So when intelligent system is replacing human drivers, first thing to say is Marcoscopic. 
 The intelligent system can query anything it need, so the horizon will never be a limit. 
 
 \paragraph{Individualistic versus Collectivistic}
-Not only horizon is broaden, a centered dispaching system is also able to design a perfect solution that fits everyone in the situation. This can be dan if there's a leading system that direct all others. 
+Not only horizon is broaden, a centered dispaching system is also able to design a perfect solution that fits everyone in the situation. This can be dan if there - s a leading system that direct all others. 
 
 \paragraph{More Kinetic}
 As processor runs far more faster than human, intelligent system can response very fast. 
@@ -201,7 +201,7 @@ And the final decision will be better.
 \paragraph{The Wait-only Strategy}
 In order to compare, we add this control group. 
 It's the safest but slowest. 
-See figure \ref{waitless}
+See figure \ref{fig:www}
 \begin{figure}
 \begin{minipage}[t]{0.5\linewidth}
 \centering
@@ -218,11 +218,11 @@ See figure \ref{waitless}
 \end{figure}
 \paragraph{The Keep-Right-Except-To-Pass Strategy}
 This strategy has just been discussed. 
-After our test, we found this strategy \textbf{only} perform well in less lanes, less traffic condition, see figure \ref{graphkeepright}
+After our test, we found this strategy \textbf{only} perform well in less lanes, less traffic condition, see figure \ref{fig:graphkeepright}
 \begin{figure}[H]
   \centering
   \includegraphics[width=.6\textwidth]{./img/graphkeepright.png}
-  \caption{Keep right strategy doesn't work well on new condition. }
+  \caption{Keep-right strategy doesn't work well on new condition. }
   \label{fig:graphkeepright}
 \end{figure}
 \paragraph{The Speed Classifying Strategy}
@@ -264,8 +264,20 @@ New Strategy absorbed the former's advantages, which do as follows,
 After our thousands of ticks of experimenting, we sort out the data as follows(\ref{}). 
 
 
-\section{Model \uppercase\expandafter{\romannumeral2}: }
-With more tecknology implemented, and more percise brain you have. 
+\section{Model \uppercase\expandafter{\romannumeral2}: Probabilistically Strategy}
+\subsection{The Speed Classifying and Change Lane probabilistically Strategy}
+From Model 1, we know a new more efficient ways to solve the difficulty from freeways,but not just so ,then we want to investigate it futher. when vehicle transportation on the same roadway is fully under the control of an intelligent system â€“ either part of the road network or imbedded in the design of all vehicles using the roadway, we can contract some probabilisticaty in order to determine the car wherther change the lane or which turn to base on traffic volume and cars around itself on the freeway.Of course, they will come back to the origin lane if possiby. To understand better the change in tow Models, we compare them in Figure \cite{fig:model2}.
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.6\textwidth]{./img/model2.png}
+  \caption{Speed Classified}
+  \label{fig:model2}
+\end{figure}
+\subsection{Distinctive Strategy}
+Vehicles in Model \uppercase\expandafter{\romannumeral2} can changes it's diretction and not rely on lanes totally,but those in Model \uppercase\expandafter{\romannumeral1} can't.
+
+\subsection{Effeciency Analysis}
+Because of the addtion of probability to change lane, it can improve the efficiency to some extent. When a car is running father than the other but slower,it maybe cause the other slow down in model \uppercase\expandafter{\romannumeral1}. But in model \uppercase\expandafter{\romannumeral2}, there exists some probability making situation not worse because the other may overtake the one.
 
 \section{Evaluate of the Models}
 \subsection{Strengths}
@@ -273,7 +285,6 @@ With more tecknology implemented, and more percise brain you have.
 \subsection{Weaknesses}
 
 \subsection{Sensitivity and Robustness}
-%Ðè°üÀ¨ÈçºÎÍ¨¹ýµ÷ÕûÊ¹µÃÄ£ÐÍ¸¶ÖîÓÚÊµ¼ÊÓ¦ÓÃÕâ¸öÎÊÌâµÄ·ÖÎö¡£
 \section{Conclusion}
 
 
