@@ -9,24 +9,39 @@ With the rapid development of science and technology, optimizing traffic flow ha
 Attempts to produce a mathematical theory of traffic flow date back to the 1920s, when Frank Knight first produced an analysis of traffic equilibrium, which was refined into Wardrop's first and second principles of equilibrium in 1952\cite{trafficflowhistory}. In 1950s, CA(cellular automaton) model are raised by Von Neumann, and it called much attention in 1970s. S.Wolfram first implemented this model on addressing traffic flow\cite{1983RvMP...55..601W}. Since then quantities of CA models are proposed in the realm of traffic flow theory, such as NaSch model, FI model, BML model, etc. As civilization developed, old models are more and more limited. 
 
 \subsection{Simulation Model}
-We developed a new traffic flow simulation model toolkit based on HTML5. With the function of collision detection and fundamental diagram paiting, we can easily analyze the performance of individual strategies. 
-\begin{figure}[htbp]
+We developed a new traffic flow simulation model toolkit based on HTML5. With the function of collision pre-detection and fundamental diagram paiting, we can easily analyze the performance of individual strategies. 
+\begin{figure}[H]
   \centering
-  \includegraphics[width=.8\textwidth]{./img/simulationmodel.png}
+  \includegraphics[width=.6\textwidth]{./img/simulationmodel.png}
   \caption{Strategy, max rows, and car amount can be changed instantly. In the fundamental diagram, blue points mean the vehicle is running at its fastest speed, red points means it's obstructed. }
   \label{fig:simulationmodel}
 \end{figure}
+Figure \ref{fig:simulationmodel} shows the interface simulation toolkit. And if we need faster calculation, we can toggle the animation and process with no delay. Time inside this system is based on ticks as a unit of time rather than real time, so the programme can maximize the computer capacity. 
 
-Figure \ref{fig:simulationmodel} shows the interface simulation toolkit. And if we need faster calculation, we can toggle the animation and process with no delay. Time inside this system is based on ticksas a unit of time rather than real time, so the programme can maximize the computer capacity. 
+Under this model we analyzed the formal individual strategies of vehicle drivers, estimated a trival upper bound of traffic efficiency, and tried to design an optimal self-adapting solution capable of all condition that make efficiency approach to the upper bound. 
+
+% event loop, collision pre-detection, lane changing are expandable
 
 \section{Assumptions}
-
+The argumentation in this paper is based on assumptions below. 
+\begin{itemize}
+  \item Safety has the unconditional priority to any other goals; 
+  \item Roads in this paper refer to streight equal width roads. Vehicles travls along and across equal width lanes freely; 
+  \item The amount of vehicles at each time fits Poisson distribution\cite{breiman1963}; 
+  \item The length, max speed of vehicles evenly distributed in specific intervals; 
+  \item As both speed and accelleration are related to the performance of the vehicle, we assumpt acelleration is linear to speed; 
+  \item Traveling across lanes make a car engaging two lanes for a while, and requires no other costs. 
+  \item Accidents are out of account; 
+  \item Other enviromental condition remain stable; 
+\end{itemize}
 \section{Nomenclature and Terminology}
 
 \section{Analysis}
+\subsection{The Distribution of Vehicles}
+
 \subsection{The Keep-Right-Except-To-Pass Rule}
 
-\subsection{A Trival Upper Bound of Traffic Effeciency}
+\subsection{A Trival Upper Bound of Traffic Efficiency}
 
 \subsection{The Difference Between Human Judgment and Intelligent System}
 \paragraph{Microscopic versus Marcoscopic}

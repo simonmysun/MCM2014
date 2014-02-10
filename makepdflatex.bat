@@ -4,6 +4,9 @@ xelatex mcmpaper
 bibtex mcmpaper
 xelatex mcmpaper
 xelatex mcmpaper
+bibtex mcmpaper
+xelatex mcmpaper
+xelatex mcmpaper
 pdflatex mcmpapersummarysheet
 pdflatex mcmpapersummarysheet
 pdflatex main
