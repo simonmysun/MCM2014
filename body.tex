@@ -141,7 +141,7 @@ Our strategy and model doesn't acquire exact direction, but a stable one. Discus
 \subsection{The Keep-Right-Except-To-Pass Rule}
 The keep-right-except-to-pass employ a rule that requires drivers to drive in the right-most lane unless they are passing another vehicle, in which case they move one lane to the left, pass, and return to their former travel lane. 
 In old condition, bidirectional traffic requires vehicles sometime share lanes. 
-So the rule of right- and left-hand traffic emerged naturely. 
+So the rule of right- and left-hand traffic emerged naturally. 
 Besides, there are few vehicles, and roads are narrow. And to fit the road interchange, fixing a direction is always good to unify. Figure \ref{fig:cloverleaf} shows an cloverleaf
 \begin{figure}[H]
   \centering
@@ -199,7 +199,9 @@ And the final decision will be better.
 \section{Model \uppercase\expandafter{\romannumeral1}: Individual Strategy Under Certain Rules}
 \subsection{Existent Strategy}
 \paragraph{The Wait-only Strategy}
-In order to compare, we add this control group. It's the safest but slowest. See figure \ref{waitless}
+In order to compare, we add this control group. 
+It's the safest but slowest. 
+See figure \ref{waitless}
 \begin{figure}
 \begin{minipage}[t]{0.5\linewidth}
 \centering
@@ -215,16 +217,55 @@ In order to compare, we add this control group. It's the safest but slowest. See
 \end{minipage}
 \end{figure}
 \paragraph{The Keep-Right-Except-To-Pass Strategy}
-This strategy has just been discussed. After our test, we found this strategy only perform well in less lanes, less traffic condition, see figure \ref{graphkeepright}
+This strategy has just been discussed. 
+After our test, we found this strategy \textbf{only} perform well in less lanes, less traffic condition, see figure \ref{graphkeepright}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.6\textwidth]{./img/graphkeepright.png}
+  \caption{Keep right strategy doesn't work well on new condition. }
+  \label{fig:graphkeepright}
+\end{figure}
 \paragraph{The Speed Classifying Strategy}
-
+After observing the previous result and thinking of some highway, we proposed a speed classifying strategy. 
+Vehicles goes on only the lane it belongs to. 
+Surprisingly, this strategy works well. 
+Figure \ref{speedclass} shows the fundamental diagram. We can see that fast vehicles travels very fast. and won't be much obstructed. 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.6\textwidth]{./img/speedclass.png}
+  \caption{Speed Classified}
+  \label{fig:speedclass}
+\end{figure}
 \paragraph{the Dodging Strategy}
+Naturally when a vehicle wos obstracted behind another one, it should take a detour. So we implement dodging strategy to research its performance. Unforturnately, when there are more than $50$ vehicles this strategy cannot handle the condition. But from figure \ref{fig:dodging} we can see it work well when there aren't too many vehacles. 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.8\textwidth]{./img/dodging.png}
+  \caption{Speed Classified}
+  \label{fig:dodging}
+\end{figure}
 \subsection{Distinctive Strategy}
-
+The strategies above all has their own advantages and disadbantages. We keep their essence and discard their dross, to design a new strategy. 
+\paragraph{From Keep-Right-Except-To-Pass}
+As we observed, keeping right can always avoid blocking others, So when vehicles behind will perform an overtake, the slow car should dodge first. 
+\paragraph{From Speed Classifying}
+Though vehicles didn't awe other, they still travels fast. and you will never meet if you buy different things. 
+\paragraph{From Dodging}
+Dodging is a very flexible method. Never stuck as long as their's a way. 
+\paragraph{New Strategy}
+New Strategy absorbed the former's advantages, which do as follows, 
+\begin{enumerate}
+\item Use realtime data to detect the enviroment. 
+\item Produce an instant speed classifying. 
+\item Collision Pre-detect. 
+\item Decide whether to change lane or not. The more it is faster than average, the more chance it will turn right, and vise versa. 
+\end{enumerate}
 \subsection{Effeciency Analysis}
+After our thousands of ticks of experimenting, we sort out the data as follows(\ref{}). 
+
 
 \section{Model \uppercase\expandafter{\romannumeral2}: }
-... 
+With more tecknology implemented, and more percise brain you have. 
 
 \section{Evaluate of the Models}
 \subsection{Strengths}

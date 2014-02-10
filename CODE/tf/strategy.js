@@ -184,8 +184,8 @@ function strategyB(car, carList) {
 	    car.offset = 1.5;	
 	}
     }
-    //strategyWait(car, carList);
-    strategyA(car, carList);
+    strategyWait(car, carList);
+    //strategyA(car, carList);
 }
 
 function strategyC(car, carList) {
