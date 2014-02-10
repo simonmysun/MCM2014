@@ -1,17 +1,59 @@
-%问题介绍
-\input{./sec/intro}
-%问题分析
-\input{./sec/anal}
-%模u型建立
-\input{./sec/model}
-%模型结果
-\input{./sec/res}
-%模型的实效分析（适应性说明）
-\input{./sec/vali}
-%确认模型，使之合理
-\input{./sec/concl}
-%结论
-\input{./sec/summ}
-%总体评价
-\input{./sec/eval}
+\section{Introduction}
+\subsection{Introduction to the Problem}
+With the rapid development of science and technology, optimizing traffic flow has become an urgent demand of people around the world. Under the new conditions and prerequisites, the old rules may no longer apply. In order to address the problem above we conclude two sub-problems to tackle in our paper: 
+\begin{itemize}
+\item Analyze whether keep-right-except-to-pass rule work in new conditions including heavy traffic, more lanes, etc. Compare keep-right-except-to-pass rule and other alternatives and decide which is better at what need. Analyze robustness. 
+\item Research how will the conclusion vary providing vehicles are controled by intellegent system. 
+\end{itemize}
+\subsection{Background}
+Attempts to produce a mathematical theory of traffic flow date back to the 1920s, when Frank Knight first produced an analysis of traffic equilibrium, which was refined into Wardrop's first and second principles of equilibrium in 1952\cite{trafficflowhistory}. In 1950s, CA(cellular automaton) model are raised by Von Neumann, and it called much attention in 1970s. S.Wolfram first implemented this model on addressing traffic flow\cite{1983RvMP...55..601W}. Since then quantities of CA models are proposed in the realm of traffic flow theory, such as NaSch model, FI model, BML model, etc. As civilization developed, old models are more and more limited. 
+
+\subsection{Simulation Model}
+We developed a new traffic flow simulation model toolkit based on HTML5. With the function of collision detection and fundamental diagram paiting, we can easily analyze the performance of individual strategies. 
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=.8\textwidth]{./img/simulationmodel.png}
+  \caption{Strategy, max rows, and car amount can be changed instantly. In the fundamental diagram, blue points mean the vehicle is running at its fastest speed, red points means it's obstructed. }
+  \label{fig:simulationmodel}
+\end{figure}
+
+Figure \ref{fig:simulationmodel} shows the interface simulation toolkit. And if we need faster calculation, we can toggle the animation and process with no delay. Time inside this system is based on ticksas a unit of time rather than real time, so the programme can maximize the computer capacity. 
+
+\section{Assumptions}
+
+\section{Nomenclature and Terminology}
+
+\section{Analysis}
+\subsection{The Keep-Right-Except-To-Pass Rule}
+
+\subsection{A Trival Upper Bound of Traffic Effeciency}
+
+\subsection{The Difference Between Human Judgment and Intelligent System}
+\paragraph{Microscopic versus Marcoscopic}
+\paragraph{Individualistic versus Collectivistic}
+\paragraph{More Kinetic}
+
+\section{Model \uppercase\expandafter{\romannumeral1}: Individual Strategy Under Certain Rules}
+\subsection{Existent Strategy}
+Precondition: Safety First. There shall be no collision
+\paragraph{The Wait-only Strategy}
+\paragraph{The Keep-Right-Except-To-Pass Strategy}
+\paragraph{The Speed Classifying Strategy}
+\paragraph{the Dodging Rule}
+\subsection{Distinctive Strategy}
+
+\subsection{Effeciency Analysis}
+
+\section{Model \uppercase\expandafter{\romannumeral2}: }
+... 
+
+\section{Evaluate of the Models}
+\subsection{Strengths}
+
+\subsection{Weaknesses}
+
+\subsection{Sensitivity and Robustness}
+\section{Conclusion}
+
+
 \input{./appendix}

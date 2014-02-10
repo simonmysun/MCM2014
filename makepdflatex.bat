@@ -1,7 +1,9 @@
 @echo off
 Call clean.bat
-pdflatex mcmpaper
-pdflatex mcmpaper
+xelatex mcmpaper
+bibtex mcmpaper
+xelatex mcmpaper
+xelatex mcmpaper
 pdflatex mcmpapersummarysheet
 pdflatex mcmpapersummarysheet
 pdflatex main
