@@ -213,6 +213,99 @@ function strategyC(car, carList) {
 }
 
 function strategyD(car, carList) {
+	 var aheadtime = 120000000;
+   var backtime = 120000000;
+   if(car.x <= car.len * 1.3 + car.maxSpeed * backWarningRatio)
+   {
+	car.speed = Math.min(car.maxSpeed, car.speed + car.maxSpeed / accelerateRatio);
+	return ;
+   }
+   
+	var flag;
+	var _flag;
+   if(car.row == 0 && car.offset == 0)
+   {
+	flag = 0;
+	for(var x in carList) {
+	    if(car != carList[x]) {
+		var safeStatus = safe(turn(car, 'right'), carList[x]);
+		if(safeStatus < 1) {
+		    flag = 1;		    
+		    break;
+		}
+	    }
+	}
+	for(var x in carList){
+		if(car != carList[x]){
+			var safeStatus = safe(car,carList[x]);
+			if(safeStatus < 1){
+				_flag = 1;
+				break;
+			}
+		}
+	}
+	for(var x in carList){
+		if(car != carList[x]){
+			if(car.x < carList[x].x && car.maxSpeed > carList[x].maxSpeed){
+				aheadtime = Math.min(aheadtime,(backWarningRatio * Math.exp(- carList[x].speed) + carList[x].len * 1.3 + car.maxSpeed * frontWarningRatio) / car.maxSpeed);
+			}
+			else if(car.x > carList[x] && car.maxSpeed < carList[x].maxSpeed){
+				backtime = Math.min(backtime,(backWarningRatio * Math.exp(- car.speed) + car.len * 1.3 + carList[x].maxSpeed * frontWarningRatio) / carList[x].maxSpeed);
+			}
+		}
+	}
+	if(aheadtime < backtime && !_flag){
+		car.speed = Math.min(car.maxSpeed, car.speed + car.maxSpeed / accelerateRatio);
+	}
+	else if(aheadtime < backtime){
+		car.speed = Math.max(0, car.speed - car.maxSpeed / brakeRatio);
+	}
+	else if(!flag) {
+	    car.o='right';
+	    car.offset = 1.5;
+	}
+	else{
+	    car.speed = Math.min(car.maxSpeed, car.speed + car.maxSpeed / accelerateRatio);
+	}
+	return ;
+   }
+   if(car.row == 1 && car.offset == 0)
+   {
+	for(var x in carList){
+		if(car != carList[x]){
+			if(car.x < carList[x].x && car.maxSpeed > carList[x].maxSpeed){
+				aheadtime = Math.min(aheadtime,(backWarningRatio * Math.exp(- carList[x].speed) + carList[x].len * 1.3 + car.maxSpeed * frontWarningRatio) / car.maxSpeed);
+			}
+			else if(car.x > carList[x] && car.maxSpeed < carList[x].maxSpeed){
+				backtime = Math.min(backtime,(backWarningRatio * Math.exp(- car.speed) + car.len * 1.3 + carList[x].maxSpeed * frontWarningRatio) / carList[x].maxSpeed);
+			}
+		}
+	}
+	if(aheadtime < backtime){
+		car.o = 'left';
+		car.offset = 1.5;
+	}
+	else
+	{
+	    flag = 0;
+   	    for(var x in carList) {
+		if(car != carList[x]) {
+	    		var safeStatus = safe(car, carList[x]);
+	    		if(safeStatus < 1) {
+				flag = 1;		    
+				break;
+	    		}
+		}
+    	    }
+    	    if(!flag) {
+	    	car.speed = Math.min(car.maxSpeed, car.speed + car.maxSpeed / accelerateRatio);
+    	    }
+    	    else {
+		car.speed = Math.max(0, car.speed - car.maxSpeed / brakeRatio);
+    	    }
+	}
+   }
+   return ;
     
 }
 
