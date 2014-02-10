@@ -124,7 +124,7 @@ We tested and watched the model performance and chose $5$ as expire time to make
 The keep-right-except-to-pass employ a rule that requires drivers to drive in the right-most lane unless they are passing another vehicle, in which case they move one lane to the left, pass, and return to their former travel lane. 
 In old condition, bidirectional traffic requires vehicles sometime share lanes. 
 So the rule of right- and left-hand traffic emerged naturely. 
-Besides, there are few vehicles, and roads are narrow. And to fit the road interchange, fixing a direction is always good to unify. Figure \ref{fig:cloverleaf} 
+Besides, there are few vehicles, and roads are narrow. And to fit the road interchange, fixing a direction is always good to unify. Figure \ref{fig:cloverleaf} shows an cloverleaf
 \begin{figure}[H]
   \centering
   \includegraphics[width=.2\textwidth]{./img/cloverleaf.png}
@@ -132,7 +132,7 @@ Besides, there are few vehicles, and roads are narrow. And to fit the road inter
   \label{fig:cloverleaf}
 \end{figure}
 Our model Also perfectly reveal this situation. 
-Figure \ref{fig:keeprightless} shows 
+Figure \ref{fig:keepright} shows 
 
 
 \subsection{A Trival Upper Bound of Traffic Efficiency}
@@ -162,7 +162,7 @@ Precondition: Safety First. There shall be no collision
 \subsection{Weaknesses}
 
 \subsection{Sensitivity and Robustness}
-%Ğè°üÀ¨ÈçºÎÍ¨¹ıµ÷ÕûÊ¹µÃÄ£ĞÍ¸¶ÖîÓÚÊµ¼ÊÓ¦ÓÃÕâ¸öÎÊÌâµÄ·ÖÎö¡£
+%éœ€åŒ…æ‹¬å¦‚ä½•é€šè¿‡è°ƒæ•´ä½¿å¾—æ¨¡å‹ä»˜è¯¸äºå®é™…åº”ç”¨è¿™ä¸ªé—®é¢˜çš„åˆ†æã€‚
 \section{Conclusion}
 
 
