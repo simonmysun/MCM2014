@@ -70,7 +70,6 @@ function safe(a, b) {
 }
 
 function strategyNon(car, carList){
-    car.x += car.speed;
     car.speed = Math.min(car.maxSpeed, car.speed + car.maxSpeed / accelerateRatio);
 }
 
